@@ -1,35 +1,44 @@
-<?php namespace igaster\laravelTheme\Assets;
+<?php
 
-class Assets {
+namespace MauroMoreno\LaravelTheme\Assets;
 
-private static $items = [];
+class Assets
+{
+    private static $items = [];
 
-	public static function add(AbstractAsset $asset, $depends = ''){
-		if ($depends)
-			$asset->addParent(self::find($depends));
+    public static function add(AbstractAsset $asset, $depends = '')
+    {
+        if ($depends) {
+            $asset->addParent(self::find($depends));
+        }
 
-		return self::$items[] = $asset;
-	}
+        return self::$items[] = $asset;
+    }
 
-	public static function script($name, $alias = '', $depends = ''){
-		return self::add(new Js($name, $alias), $depends)->write();
-	}
+    public static function script($name, $alias = '', $depends = '')
+    {
+        return self::add(new Js($name, $alias), $depends)->write();
+    }
 
-	public static function style($name, $alias = '', $depends = ''){
-		return self::add(new css($name, $alias), $depends)->write();
-	}
+    public static function style($name, $alias = '', $depends = '')
+    {
+        return self::add(new Css($name, $alias), $depends)->write();
+    }
 
-	public static function file($name, $alias = '', $depends = ''){
-		return self::add(new Asset($name, $alias), $depends)->write();
-	}
+    public static function file($name, $alias = '', $depends = '')
+    {
+        return self::add(new Asset($name, $alias), $depends)->write();
+    }
 
-	public static function find($alias){
+    public static function find($alias)
+    {
 
-		foreach (self::$items as $asset) 
-			if ($asset->alias === $alias)
-				return $asset;
+        foreach (self::$items as $asset) {
+            if ($asset->alias === $alias) {
+                return $asset;
+            }
+        }
 
-		throw new \Exception("Asset not found : $alias");
-	}
-
+        throw new \Exception("Asset not found : $alias");
+    }
 }
