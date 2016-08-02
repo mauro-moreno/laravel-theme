@@ -135,7 +135,7 @@ Theme::css('file-name')
 Theme::img('src', 'alt', 'class-name', ['attribute' => 'value'])
 ```    
 
-## 'setTheme' middleware (Laravel 5.2+)
+## 'SetTheme' middleware (Laravel 5.2+)
 
 A [helper middleware](https://github.com/mauro-moreno/laravel-theme/blob/master/src/Middleware/SetTheme.php) is included out of the box if you want to define a Theme per route. To use it:
 
@@ -151,7 +151,7 @@ protected $routeMiddleware = [
 Now you can apply the middleware to a route or route-group. Eg:
 
 ```php
-Route::group(['prefix' => 'admin', 'middleware'=>'SetTheme:ADMIN_THEME'], function() {
+Route::group(['prefix' => 'admin', 'middleware'=>'SetTheme::ADMIN_THEME'], function() {
     // ... Add your routes here 
     // The ADMIN_THEME will be applied.
 });
