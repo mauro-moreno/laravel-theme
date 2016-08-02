@@ -37,7 +37,7 @@ class Item
         return $this->flattenTree($includeMe, self::DIRECTION_CHILDREN);
     }
 
-    public function ancenstors($includeMe = true)
+    public function ancestors($includeMe = true)
     {
         return $this->flattenTree($includeMe, self::DIRECTION_PARENTS);
     }
