@@ -3,6 +3,7 @@
 namespace MauroMoreno\LaravelTheme;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
 
 class Themes
 {
@@ -23,15 +24,17 @@ class Themes
     }
 
     /**
-     * Add a new theme to the hierarcy. Optionaly define a parent theme.
+     * Add a new theme to the hierarchy. Optionally define a parent theme.
      *
      * @param   \MauroMoreno\LaravelTheme\Theme $theme
      * @param   string $parentName
+     *
      * @return  \MauroMoreno\LaravelTheme\Theme
      */
     public function add(Theme $theme, $parentName = '')
     {
-        $theme->addParent($parentName ? $this->find($parentName) : $this->root);
+        $parent = $this->find($parentName);
+        $theme->addParent($parent ? $parent : $this->root);
         return $theme;
     }
 
@@ -39,6 +42,7 @@ class Themes
      * Find a Theme (by name)
      *
      * @param   string $themeName
+     *
      * @return  \MauroMoreno\LaravelTheme\Theme
      */
     public function find($themeName)
@@ -52,6 +56,7 @@ class Themes
      * Check if $themeName is a valid Theme
      *
      * @param   string $themeName
+     *
      * @return  bool
      */
     public function exists($themeName)
@@ -63,6 +68,7 @@ class Themes
      * Set $themeName is the active Theme
      *
      * @param   string $themeName
+     *
      * @return  void
      */
     public function set($themeName)
@@ -103,7 +109,7 @@ class Themes
 
         $themeViewFinder = app('view.finder');
         $themeViewFinder->setPaths($paths);
-        \Event::fire('igaster.laravel-theme.change', $this->activeTheme);
+        Event::fire('mauro-moreno.laravel-theme.change', $this->activeTheme);
     }
 
     /**
@@ -157,9 +163,11 @@ class Themes
 
             // Check for valid {xxx} keys and replace them with the Theme's configuration value (in themes.php)
             preg_match_all('/\{(.*?)\}/', $url, $matches);
-            foreach ($matches[1] as $param)
-                if(($value=$this->config($param)) !== null)
+            foreach ($matches[1] as $param) {
+                if (($value=$this->config($param)) !== null) {
                     $url = str_replace('{'.$param.'}', $value, $url);
+                }
+            }
 
             return $this->activeTheme->url($url);
         }
