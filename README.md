@@ -31,7 +31,7 @@ install with
 
 Add the service provider in `app/config/app.php`, `Providers` array:
 
-    MauroMoreno\LaravelTheme\themeServiceProvider::class,
+    MauroMoreno\LaravelTheme\ThemeServiceProvider::class,
 
 also edit the `Facades` array and add:
 
@@ -39,7 +39,7 @@ also edit the `Facades` array and add:
 
 Almost Done. You can optionally publish a configuration file to your application with
 
-    php artisan vendor:publish --provider="MauroMoreno\LaravelTheme\themeServiceProvider"
+    php artisan vendor:publish --provider="MauroMoreno\LaravelTheme\ThemeServiceProvider"
 
 That's it. You are now ready to start theming your applications!
 
@@ -144,14 +144,14 @@ First register it in `app\Http\Kernel.php`:
 ```php
 protected $routeMiddleware = [
     // ...
-    'setTheme' => \MauroMoreno\LaravelTheme\Middleware\setTheme::class,
+    'setTheme' => \MauroMoreno\LaravelTheme\Middleware\SetTheme::class,
 ];
 ```
 
 Now you can apply the middleware to a route or route-group. Eg:
 
 ```php
-Route::group(['prefix' => 'admin', 'middleware'=>'setTheme:ADMIN_THEME'], function() {
+Route::group(['prefix' => 'admin', 'middleware'=>'SetTheme:ADMIN_THEME'], function() {
     // ... Add your routes here 
     // The ADMIN_THEME will be applied.
 });
