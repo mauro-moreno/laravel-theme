@@ -156,7 +156,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'SetTheme::ADMIN_THEME'], funct
     // The ADMIN_THEME will be applied.
 });
 ```
-For a more advanced example check demo application: [Set Theme in Session](https://github.com/mauro-moreno/laravel-theme-demo) 
+For a more advanced example check demo application: [Set Theme in Session](https://github.com/igaster/laravel-theme-demo) 
 
 ## Parametric filenames
 
