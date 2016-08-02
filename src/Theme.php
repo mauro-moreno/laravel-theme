@@ -2,7 +2,9 @@
 
 namespace MauroMoreno\LaravelTheme;
 
-class Theme extends Tree\Item
+use MauroMoreno\LaravelTheme\Tree\Item;
+
+class Theme extends Item
 {
     public $name;
     public $assetPath;

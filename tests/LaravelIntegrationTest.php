@@ -1,12 +1,12 @@
 <?php
 
-use MauroMoreno\LaravelTheme\Tests\TestCase\TestCaseWithDatabase;
 use Orchestra\Testbench\TestCase;
+use MauroMoreno\LaravelTheme\Facades\Theme as ThemeFacade;
 use MauroMoreno\LaravelTheme\Theme;
 use MauroMoreno\LaravelTheme\Themes;
 use MauroMoreno\LaravelTheme\ThemeServiceProvider;
 
-class ExampleTest extends TestCase
+class LaravelIntegrationTest extends TestCase
 {
     // -----------------------------------------------
     //   add Service Providers & Facades
@@ -14,7 +14,7 @@ class ExampleTest extends TestCase
     protected function getPackageProviders($app)
     {
         return [
-            MauroMoreno\LaravelTheme\ThemeServiceProvider::class,
+            ThemeServiceProvider::class,
         ];
     }
 
@@ -22,7 +22,7 @@ class ExampleTest extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'ThemeFacade' => MauroMoreno\LaravelTheme\Facades\Theme::class,
+            'ThemeFacade' => ThemeFacade::class,
         ];
     }
 
@@ -67,7 +67,7 @@ class ExampleTest extends TestCase
 
    public function testFacade()
    {
-        $this->assertInstanceOf(\MauroMoreno\LaravelTheme\Facades\Theme::class ,app()->make('ThemeFacade'));
+        $this->assertInstanceOf(ThemeFacade::class, app()->make('ThemeFacade'));
         
         $theme1 = new Theme('theme1');
         ThemeFacade::add($theme1);

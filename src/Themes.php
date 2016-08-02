@@ -11,6 +11,10 @@ class Themes
     private $defaultViewsPath;
     private $themesPath;
 
+    /**
+     * Themes constructor.
+     *
+     */
     public function __construct()
     {
         $this->defaultViewsPath = Config::get('view.paths');
@@ -39,8 +43,8 @@ class Themes
      */
     public function find($themeName)
     {
-        return $this->root->searchChild(function($item) use($themeName){
-            return ($item->name == $themeName ? $item : false);
+        return $this->root->searchChild(function($item) use ($themeName) {
+            return $item->name == $themeName ? $item : false;
         });
     }
 
@@ -52,7 +56,7 @@ class Themes
      */
     public function exists($themeName)
     {
-        return ($this->find($themeName) !== false);
+        return $this->find($themeName) !== false;
     }
 
     /**
@@ -63,11 +67,13 @@ class Themes
      */
     public function set($themeName)
     {
-        if (!Config::get('themes.enabled', true))
+        if (!Config::get('themes.enabled', true)) {
             return;
+        }
 
-        if (!$theme = $this->find($themeName))
+        if (!$theme = $this->find($themeName)) {
             $theme = $this->add(new Theme($themeName));
+        }
 
         $this->activeTheme = $theme;
 
@@ -75,20 +81,23 @@ class Themes
         // All paths are relative to Config::get('theme.theme_path')
         $paths = [];
         do {
-            if(substr($theme->viewsPath, 0, 1) === DIRECTORY_SEPARATOR){
+            if (substr($theme->viewsPath, 0, 1) === DIRECTORY_SEPARATOR) {
                 $path = base_path(substr($theme->viewsPath, 1));
             } else {
                 $path = $this->themesPath;
                 $path .= empty($theme->viewsPath) ? '' : DIRECTORY_SEPARATOR . $theme->viewsPath;
             }
-            if(!in_array($path, $paths))
+            if (!in_array($path, $paths)) {
                 $paths[] = $path;
+            }
         } while ($theme = $theme->getParent());
 
         // fall-back to default paths (set in views.php config file)
-        foreach ($this->defaultViewsPath as $path)
-            if(!in_array($path, $paths))
+        foreach ($this->defaultViewsPath as $path) {
+            if(!in_array($path, $paths)) {
                 $paths[] = $path;
+            }
+        }
 
         Config::set('view.paths', $paths);
 
