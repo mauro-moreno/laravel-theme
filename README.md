@@ -1,10 +1,12 @@
 ## Description
 [![Laravel](https://img.shields.io/badge/Laravel-5.x-orange.svg?style=flat-square)](http://laravel.com)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://tldrlegal.com/license/mit-license)
-[![Build Status](https://img.shields.io/travis/igaster/laravel-theme.svg)](https://travis-ci.org/igaster/laravel-theme)
-[![Downloads](https://img.shields.io/packagist/dt/igaster/laravel-theme.svg?style=flat-square)](https://packagist.org/packages/igaster/laravel-theme)
+[![Build Status](https://img.shields.io/travis/mauro-moreno/laravel-theme.svg)](https://travis-ci.org/mauro-moreno/laravel-theme)
+[![Downloads](https://img.shields.io/packagist/dt/mauro-moreno/laravel-theme.svg?style=flat-square)](https://packagist.org/packages/mauro-moreno/laravel-theme)
 
-This is a package for the Laravel 5 Framework that adds basic support for managing themes. It allows you to seperate your views & your assets files in seperate folders, and supports for theme extending! Awesome :)
+Fork of [igaster/laravel-theme](https://github.com/igaster/laravel-theme/)
+
+This is a package for the Laravel 5 Framework that adds basic support for managing themes. It allows you to separate your views & your assets files in separate folders, and supports for theme extending! Awesome :)
 
 Features:
 
@@ -13,7 +15,7 @@ Features:
 * Integrates [Orchestra/Asset](http://orchestraplatform.com/docs/3.0/components/asset) to provide Asset dependencies managment
 * Your App & Views remain theme-agnostic. Include new themes with (almost) no modifications
 
-#### For Laravel 5.0 & 5.1, please use the [v1.0.x branch](https://github.com/igaster/laravel-theme/tree/v1.0)
+#### For Laravel 5.0 & 5.1, please use the [v1.0.x branch](https://github.com/mauro-moreno/laravel-theme/tree/v1.0)
 
 ## How it works
 
@@ -25,26 +27,26 @@ The rest of your application remains theme-agnostic©, which means that when you
 
 install with
 
-    composer require "igaster/laravel-theme"
+    composer require "mauro-moreno/laravel-theme"
 
 Add the service provider in `app/config/app.php`, `Providers` array:
 
-    igaster\laravelTheme\themeServiceProvider::class,
+    MauroMoreno\LaravelTheme\themeServiceProvider::class,
 
 also edit the `Facades` array and add:
 
-    'Theme' => igaster\laravelTheme\Facades\Theme::class,
+    'Theme' => MauroMoreno\LaravelTheme\Facades\Theme::class,
 
 Almost Done. You can optionally publish a configuration file to your application with
 
-    php artisan vendor:publish --provider="igaster\laravelTheme\themeServiceProvider"
+    php artisan vendor:publish --provider="MauroMoreno\LaravelTheme\themeServiceProvider"
 
 That's it. You are now ready to start theming your applications!
 
 ## Defining themes
 
 Heads up: Defining a theme is completely optional. You may not touch the config file as long as the defaults fits you! 
-If you want more control then you can define your themes in the `themes` array in [config/themes.php](https://github.com/igaster/laravel-theme/blob/master/src/config.php). 
+If you want more control then you can define your themes in the `themes` array in [config/themes.php](https://github.com/mauro-moreno/laravel-theme/blob/master/src/resources/config.php). 
 The format for every theme is very simple:
 
 ```php
@@ -135,14 +137,14 @@ Theme::img('src', 'alt', 'class-name', ['attribute' => 'value'])
 
 ## 'setTheme' middleware (Laravel 5.2+)
 
-A [helper middleware](https://github.com/igaster/laravel-theme/blob/master/src/Middleware/setTheme.php) is included out of the box if you want to define a Theme per route. To use it:
+A [helper middleware](https://github.com/mauro-moreno/laravel-theme/blob/master/src/Middleware/SetTheme.php) is included out of the box if you want to define a Theme per route. To use it:
 
 First register it in `app\Http\Kernel.php`:
 
 ```php
 protected $routeMiddleware = [
     // ...
-    'setTheme' => \igaster\laravelTheme\Middleware\setTheme::class,
+    'setTheme' => \MauroMoreno\LaravelTheme\Middleware\setTheme::class,
 ];
 ```
 
@@ -154,7 +156,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'setTheme:ADMIN_THEME'], functi
     // The ADMIN_THEME will be applied.
 });
 ```
-For a more advanced example check demo application: [Set Theme in Session](https://github.com/igaster/laravel-theme-demo) 
+For a more advanced example check demo application: [Set Theme in Session](https://github.com/mauro-moreno/laravel-theme-demo) 
 
 ## Parametric filenames
 
@@ -165,7 +167,7 @@ Theme::url('jquery-{version}.js')
 ```
 
 if there is a `"version"` key defined in the theme's configuration it will be evaluated and then the filename will be looked-up in the theme hierarchy. 
-(e.g: many commercial themes ship with multiple versions of the main.css for different color-schemes, or you can use [language-dependent assets](https://github.com/igaster/laravel-theme/issues/17))
+(e.g: many commercial themes ship with multiple versions of the main.css for different color-schemes, or you can use [language-dependent assets](https://github.com/mauro-moreno/laravel-theme/issues/17))
 
 ## Handling Vendor paths (eg for Package Development)
 
@@ -243,7 +245,7 @@ and your assets dependencies will be auto resolved. Your assets will be exported
 ## FAQ:
 
 ##### Is this package compatible with AWS?
-Yes with one exception: If you are building Theme hierarcies, asset's will not be looked up on the parent theme. Performing file searching on a remote repository is not the best practice. Should be addressed in a future version... However Blade templates auto-discovery works fine since they are local files.
+Yes with one exception: If you are building Theme hierarchies, asset's will not be looked up on the parent theme. Performing file searching on a remote repository is not the best practice. Should be addressed in a future version... However Blade templates auto-discovery works fine since they are local files.
 
 ##### What about external assets (eg CDN)?
 Link directly to your external assets. Every url that starts with http(s) will not be proccesed by default.
