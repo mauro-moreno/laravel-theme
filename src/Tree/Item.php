@@ -4,12 +4,16 @@ namespace MauroMoreno\LaravelTheme\Tree;
 
 class Item
 {
+    // -----------[ Generic two way functions ]--------------
+    const DIRECTION_PARENTS  = 1;
+    const DIRECTION_CHILDREN = 2;
+
     public $children = [];
     public $parents  = [];
 
     public function addChild(Item $item)
     {
-        if (!in_array($item, $this->children)){
+        if (!in_array($item, $this->children)) {
             $this->children[] = $item;
             $item->parents[] = $this;
         }
@@ -62,17 +66,15 @@ class Item
         return $this->search($callback, self::DIRECTION_PARENTS);
     }
 
-    // -----------[ Generic two way functions ]--------------
-    const DIRECTION_PARENTS  = 1;
-    const DIRECTION_CHILDREN = 2;
-
     private function relations($direction)
     {
-        if ($direction = self::DIRECTION_CHILDREN)
+        if ($direction === self::DIRECTION_CHILDREN) {
             return $this->children;
+        }
 
-        if ($direction = self::DIRECTION_PARENTS)
+        if ($direction === self::DIRECTION_PARENTS) {
             return $this->parents;
+        }
     }
 
     private function flattenTree($includeMe, $direction)
