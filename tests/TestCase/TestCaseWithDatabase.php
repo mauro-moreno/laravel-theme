@@ -1,20 +1,21 @@
-<?php namespace igaster\laravelTheme\Tests\TestCase;
+<?php
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+namespace MauroMoreno\LaravelTheme\Tests\TestCase;
+
+use Dotenv\Dotenv;
 use Orchestra\Testbench\TestCase;
 
-class TestCaseWithDatbase extends TestCase
+class TestCaseWithDatabase extends TestCase
 {
-
     // -----------------------------------------------
     //  Testcase Initialize: Setup Database/Load .env
     // -----------------------------------------------
-
-    public static function setUpBeforeClass() {
+    public static function setUpBeforeClass()
+    {
         parent::setUpBeforeClass();
-        
+
         if (file_exists(__DIR__.'/../.env')) {
-            $dotenv = new Dotenv\Dotenv(__DIR__.'/../');
+            $dotenv = new Dotenv(__DIR__.'/../');
             $dotenv->load();
         }
     }
@@ -27,8 +28,8 @@ class TestCaseWithDatbase extends TestCase
     // -----------------------------------------------
     //  Helpers
     // -----------------------------------------------
-
-    public function reloadModel(&$model){
+    public function reloadModel(&$model)
+    {
         $className = get_class($model);
         $model = $className::find($model->id);
         return $model;
@@ -37,7 +38,6 @@ class TestCaseWithDatbase extends TestCase
     // -----------------------------------------------
     //  Added functionality
     // -----------------------------------------------
-
     protected function seeInDatabase($table, array $data, $connection = null)
     {
         $database = $this->database;
@@ -72,5 +72,4 @@ class TestCaseWithDatbase extends TestCase
     {
         $this->assertInstanceOf('Illuminate\Database\SQLiteConnection', \DB::connection());
     }
-
-}    
+}

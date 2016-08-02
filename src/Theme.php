@@ -1,23 +1,28 @@
-<?php namespace igaster\laravelTheme;
+<?php
 
-class Theme extends Tree\Item {
+namespace MauroMoreno\LaravelTheme;
+
+class Theme extends Tree\Item
+{
     public $name;
     public $assetPath;
     public $viewsPath;
 
-    public function __construct($themeName, $assetPath = null, $viewsPath = null){
+    public function __construct($themeName, $assetPath = null, $viewsPath = null)
+    {
         $this->name = $themeName;
         $this->assetPath = $assetPath === null ? $themeName : $assetPath;
         $this->viewsPath = $viewsPath === null ? $themeName : $viewsPath;
     }
 
-    public function getParent(){
-        if (!empty($this->parents))
+    public function getParent()
+    {
+        if (!empty($this->parents)) {
             return $this->parents[0];
-       else
+        } else {
             return null;
+        }
     }
-
 
     /**
      * Attach theme paths to a local Url. The Url must be a resource located on the asset path
@@ -26,7 +31,8 @@ class Theme extends Tree\Item {
      * @param  string $url
      * @return string
      */
-    public function url($url){
+    public function url($url)
+    {
         // return external URLs unmodified
         if(preg_match('/^((http(s?):)?\/\/)/i',$url))
             return $url;
@@ -66,7 +72,8 @@ class Theme extends Tree\Item {
      * @param  mixed $defaultValue
      * @return mixed
      */
-    public function config($key, $defaultValue = null){
+    public function config($key, $defaultValue = null)
+    {
         //root theme not have configs
         if(array_key_exists($this->name, $confs = \Config::get("themes.themes")))
         {
@@ -87,11 +94,10 @@ class Theme extends Tree\Item {
      * @param  mixed $value
      * @return mixed
      */
-    public function configSet($key, $value){
+    public function configSet($key, $value)
+    {
         $themeName = $this->name;
         \Config::set("themes.themes.$themeName.$key",$value);
         return $value;
     }
-
-
 }

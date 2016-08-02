@@ -2,10 +2,10 @@
 
 namespace MauroMoreno\LaravelTheme\Assets;
 
-class Asset extends AbstractAsset
+class Img extends AbstractAsset
 {
     public function toStr()
     {
-        return $this->url() . "\r\n";
+        return '<img src="'.$this->url()."\">\r\n";
     }
 }

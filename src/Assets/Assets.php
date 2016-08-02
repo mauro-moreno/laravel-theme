@@ -4,7 +4,7 @@ class Assets {
 
 private static $items = [];
 
-	public static function add(abastractAsset $asset, $depends = ''){
+	public static function add(AbstractAsset $asset, $depends = ''){
 		if ($depends)
 			$asset->addParent(self::find($depends));
 
@@ -12,7 +12,7 @@ private static $items = [];
 	}
 
 	public static function script($name, $alias = '', $depends = ''){
-		return self::add(new js($name, $alias), $depends)->write();
+		return self::add(new Js($name, $alias), $depends)->write();
 	}
 
 	public static function style($name, $alias = '', $depends = ''){

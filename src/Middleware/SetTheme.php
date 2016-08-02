@@ -1,8 +1,11 @@
-<?php namespace igaster\laravelTheme\Middleware;
+<?php
+
+namespace MauroMoreno\LaravelTheme\Middleware;
 
 use Closure;
+use MauroMoreno\LaravelTheme\Facades\Theme;
 
-class setTheme
+class SetTheme
 {
     /**
      * Handle an incoming request.
@@ -14,7 +17,7 @@ class setTheme
      */
     public function handle($request, Closure $next, $themeName)
     {
-        \Theme::set($themeName);
+        Theme::set($themeName);
         return $next($request);
     }
 }

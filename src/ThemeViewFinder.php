@@ -1,11 +1,13 @@
-<?php namespace igaster\laravelTheme;
+<?php
+
+namespace MauroMoreno\LaravelTheme;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\View\FileViewFinder;
 use Illuminate\Support\Arr;
+use Illuminate\View\FileViewFinder;
 
-class themeViewFinder extends FileViewFinder {
-
+class ThemeViewFinder extends FileViewFinder
+{
     /** @var  Themes */
     protected $themeEngine;
 
@@ -14,7 +16,6 @@ class themeViewFinder extends FileViewFinder {
         $this->themeEngine = $themeEngine;
         parent::__construct($files, $paths, $extensions);
     }
-
 
     /**
      * Add support for vendor named path overrides.
@@ -53,8 +54,8 @@ class themeViewFinder extends FileViewFinder {
      *
      * @param  array  $paths
      */
-	public function setPaths($paths){
-		$this->paths = $paths;
-	}
-
+    public function setPaths($paths)
+    {
+        $this->paths = $paths;
+    }
 }

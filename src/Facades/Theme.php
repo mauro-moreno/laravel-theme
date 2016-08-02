@@ -1,4 +1,6 @@
-<?php namespace igaster\laravelTheme\Facades;
+<?php
+
+namespace MauroMoreno\LaravelTheme\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -11,6 +13,6 @@ class Theme extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'igaster.themes';
+        return 'mauro-moreno.themes';
     }
 }

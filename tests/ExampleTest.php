@@ -1,40 +1,36 @@
 <?php
 
-use igaster\laravelTheme\Tests\TestCase\TestCaseWithDatbase;
+use MauroMoreno\LaravelTheme\Tests\TestCase\TestCaseWithDatabase;
 use Orchestra\Testbench\TestCase;
+use MauroMoreno\LaravelTheme\Theme;
+use MauroMoreno\LaravelTheme\Themes;
+use MauroMoreno\LaravelTheme\ThemeServiceProvider;
 
-
-use igaster\laravelTheme\Theme;
-use igaster\laravelTheme\Themes;
-use igaster\laravelTheme\themeServiceProvider;
-
-
-// class ExampleTest extends TestCaseWithDatbase
 class ExampleTest extends TestCase
 {
-
     // -----------------------------------------------
     //   add Service Providers & Facades
     // -----------------------------------------------
-
-    protected function getPackageProviders($app) {
+    protected function getPackageProviders($app)
+    {
         return [
-            igaster\laravelTheme\themeServiceProvider::class,
+            MauroMoreno\LaravelTheme\ThemeServiceProvider::class,
         ];
     }
 
 
-    protected function getPackageAliases($app) {
+    protected function getPackageAliases($app)
+    {
         return [
-            'ThemeFacade' => igaster\laravelTheme\Facades\Theme::class,
+            'ThemeFacade' => MauroMoreno\LaravelTheme\Facades\Theme::class,
         ];
     }
 
     // -----------------------------------------------
     //  Tests
     // -----------------------------------------------
-
-    public function testTheme() { 
+    public function testTheme()
+    {
         $theme1 = new Theme('theme1');
         $this->assertInstanceOf(Theme::class, $theme1);
 
@@ -49,7 +45,8 @@ class ExampleTest extends TestCase
         $this->assertEquals('views',  $theme2->viewsPath);
     }
 
-    public function testThemes() { 
+    public function testThemes()
+    {
         $theme1 = new Theme('theme1');
         $theme2 = new Theme('theme2');
 
@@ -68,8 +65,9 @@ class ExampleTest extends TestCase
 
     }
 
-   public function testFacade() {
-        $this->assertInstanceOf(\igaster\laravelTheme\Facades\Theme::class ,app()->make('ThemeFacade'));
+   public function testFacade()
+   {
+        $this->assertInstanceOf(\MauroMoreno\LaravelTheme\Facades\Theme::class ,app()->make('ThemeFacade'));
         
         $theme1 = new Theme('theme1');
         ThemeFacade::add($theme1);
@@ -78,7 +76,8 @@ class ExampleTest extends TestCase
    } 
  
 
-    public function testSetTheme() { 
+    public function testSetTheme()
+    {
         $themes = new Themes();
         $theme1 = new Theme('theme1');
         $theme2 = new Theme('theme2');
@@ -89,5 +88,4 @@ class ExampleTest extends TestCase
         $themes->set('theme1');
         $this->assertEquals('theme1', $themes->get());
     }
-
 }

@@ -2,10 +2,10 @@
 
 namespace MauroMoreno\LaravelTheme\Assets;
 
-class Asset extends AbstractAsset
+class Js extends AbstractAsset
 {
     public function toStr()
     {
-        return $this->url() . "\r\n";
+		return '<script src="'.$this->url().'"></script>'."\n";
     }
 }
