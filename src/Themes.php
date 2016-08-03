@@ -20,7 +20,7 @@ class Themes
     {
         $this->defaultViewsPath = Config::get('view.paths');
         $this->themesPath = Config::get('themes.themes_path', null) ?: Config::get('view.paths')[0];
-        $this->root = new Theme('root','','');
+        $this->root = new Theme('root', '', '');
     }
 
     /**
@@ -91,7 +91,7 @@ class Themes
                 $path = base_path(substr($theme->viewsPath, 1));
             } else {
                 $path = $this->themesPath;
-                $path .= empty($theme->viewsPath) ? '' : DIRECTORY_SEPARATOR . $theme->viewsPath;
+                $path .= empty($theme->viewsPath) ? '' : DIRECTORY_SEPARATOR.$theme->viewsPath;
             }
             if (!in_array($path, $paths)) {
                 $paths[] = $path;
@@ -100,7 +100,7 @@ class Themes
 
         // fall-back to default paths (set in views.php config file)
         foreach ($this->defaultViewsPath as $path) {
-            if(!in_array($path, $paths)) {
+            if (!in_array($path, $paths)) {
                 $paths[] = $path;
             }
         }
@@ -159,12 +159,12 @@ class Themes
      */
     public function url($url)
     {
-        if (Config::get('themes.enabled', true)){
+        if (Config::get('themes.enabled', true)) {
 
             // Check for valid {xxx} keys and replace them with the Theme's configuration value (in themes.php)
             preg_match_all('/\{(.*?)\}/', $url, $matches);
             foreach ($matches[1] as $param) {
-                if (($value=$this->config($param)) !== null) {
+                if (($value = $this->config($param)) !== null) {
                     $url = str_replace('{'.$param.'}', $value, $url);
                 }
             }
@@ -208,7 +208,7 @@ class Themes
      * @param  array  $attributes
      * @return string
      */
-    public function img($src, $alt='', $Class='', $attributes=array())
+    public function img($src, $alt = '', $Class = '', $attributes = array())
     {
         return '<img src="'.$this->url($src).'" alt="'.$alt.'" class="'.$Class.'" '.$this->HtmlAttributes($attributes).'>';
     }
@@ -221,8 +221,8 @@ class Themes
     private function HtmlAttributes($attributes)
     {
         $formatted = join(' ', array_map(function($key) use ($attributes){
-            if(is_bool($attributes[$key])){
-                return $attributes[$key]?$key:'';
+            if (is_bool($attributes[$key])) {
+                return $attributes[$key] ? $key : '';
             }
             return $key.'="'.$attributes[$key].'"';
         }, array_keys($attributes)));
